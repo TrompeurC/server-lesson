@@ -1,0 +1,35 @@
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=12301230
+      - MYSQL_DATABASE=lesson
+    ports:
+      - 3306:3306
+    networks:
+      - nest-net
+    volumes:
+      - mysql:/var/lib/mysql
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - nest-net
+    volumes:
+      - redis:/data
+
+networks:
+  nest-net:
+    driver: bridge
+
+volumes:
+  mysql:
+  redis:
+  upload:
